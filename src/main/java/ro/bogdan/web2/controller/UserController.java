@@ -1,5 +1,6 @@
 package ro.bogdan.web2.controller;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,6 @@ public class UserController {
             modelAndView.addObject("message", "Parole nu sunt identice!");
             return modelAndView;
         } else {
-            //salvare efectiva in baza de date !!!
             try {
                 userService.save(email, password);
             } catch (InvalidPassword invalidPassword) {
@@ -72,7 +72,7 @@ public class UserController {
         }
         if (userList.size() == 1) {
             User userFromDatabase = userList.get(0);
-            if (!userFromDatabase.getPassword().equals(password)) {
+            if (!userFromDatabase.getPassword().equals(DigestUtils.md5Hex(password))) {
                 modelAndView.addObject("message", "Credentialele nu sunt corecte!");
             } else {
                 userSession.setUserId(userFromDatabase.getId());

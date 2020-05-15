@@ -14,21 +14,33 @@
         <a class="p-2 text-dark" href="#">Features</a>
         <a class="p-2 text-dark" href="#">Enterprise</a>
         <a class="p-2 text-dark" href="#">Support</a>
-        <a class="p-2 text-dark" href="/shopping-cart">Cosul meu <span th:text="${shoppingCartSize}"></span> </a>
+        <a class="p-2 text-dark" href="#">Pricing</a>
     </nav>
     <a class="btn btn-outline-primary" href="#">Sign up</a>
 </div>
 
+<div class="shop-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" style="max-width: 700px;">
+    <h1 class="display-4">Cele mai noi telefoane</h1>
+    <p class="lead">Doar la noi gasesti cele mai noi si performante telefoane. Vezi mai jos cele mai hot oferte!</p>
+</div>
+
 <div class="container" style="max-width: 960px;">
 
-    <img th:src="${product.photoFile}" class="card-img-top" style="width: 200px;margin: auto;">
-    <h4 class="my-0 font-weight-normal" th:text="${product.name}"></h4>
-    <h1 class="card-title pricing-card-title" th:text="${product.price}"></h1>
-    <p th:text="${product.description}"></p>
-    <form action="/add-to-cart" method="post">
-        <input name="productId" hidden th:value="${product.id}">
-        <button type="submit" class="btn btn-lg btn-block btn-primary">Adauga in cos</button>
-    </form>
+    <div th:each="x : ${products}" class="card mb-4 shadow-sm">
+        <img th:src="${x.photoFile}" class="card-img-top" style="width: 200px;margin: auto;">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal" th:text="${x.name}"></h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title" th:text="${x.price}"></h1>
+            <p> Cantitate <span th:text="${x.quantity}"></span></p>
+
+        </div>
+    </div>
+
+    <a href="/save-cart">
+        <button class="btn btn-primary">Trimite comanda</button>
+    </a>
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
