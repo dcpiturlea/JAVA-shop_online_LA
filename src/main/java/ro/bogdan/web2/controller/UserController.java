@@ -88,6 +88,7 @@ public class UserController {
         List<Product> products = productDAO.findAll();
         for(Product p: products) {
             p.setUrl("product?id=" + p.getId());
+
         }
 
         ModelAndView modelAndView = new ModelAndView("dashboard");
