@@ -80,6 +80,9 @@ public class ProductController {
         //sa salvam in baza de date cosul de cumparaturi
         orderDao.newOrder(userSession.getUserId(), userSession.getShoppingCart());
 
+        //trebuie sa curatam cosul de cumparaturi
+        userSession.getShoppingCart().clear();
+
         //TODO
         //trebuie sa curatam cosul de cumparaturi
         return new ModelAndView("redirect:dashboard");

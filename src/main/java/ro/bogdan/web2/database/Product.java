@@ -1,5 +1,7 @@
 package ro.bogdan.web2.database;
 
+
+
 public class Product {
 
     private int id;
@@ -8,6 +10,7 @@ public class Product {
     private String description;
     private String photoFile;
     private String url;
+    private int quantity;
 
     public int getId() {
         return id;
@@ -55,5 +58,13 @@ public class Product {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

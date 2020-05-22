@@ -21,4 +21,8 @@ public class ProductDAO {
         return jdbcTemplate.query("select * from product where id = " + id, new ProductRowMapper()).get(0);
     }
 
+    public void deleteProduct(Integer id) {
+        jdbcTemplate.update("delete from product where id = ?", id);
+    }
+
 }
