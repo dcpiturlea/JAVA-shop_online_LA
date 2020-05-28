@@ -25,4 +25,10 @@ public class ProductDAO {
         jdbcTemplate.update("delete from product where id = ?", id);
     }
 
+    public void saveProduct(String name, String description, double price) {
+        jdbcTemplate.update("INSERT INTO product (id, name, description, category_id, price, quantity, photo_file) VALUES (null, ?, ?, ?, ?, ?,?)",
+                name, description, 1, price, null, null
+        );
+    }
+
 }

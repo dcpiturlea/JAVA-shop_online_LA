@@ -5,6 +5,30 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+            function deleteProduct(productId) {
+                //1. apelam server-ul
+                $.post("http://localhost:8080/admin/remove-product?id=" + productId);
+
+                //2. trebuie sa stergem produsul din interfata = DOM numai daca pasul 1 a fost ok
+                // var el = document.getElementById(productId);
+                // el.parentElement.parentElement.remove();
+                $("#" + productId).parent().parent().remove();
+            }
+
+            function toggleFormAdd() {
+                $("#form-add").toggle();
+            }
+
+            function sendSaveProductRequest() {
+                var url = "http://localhost:8080/admin/save-product?name=Huawei&description=the best chinezarie &price=12";
+                $.post(url);
+                //sa introducem produsul in tabel
+            }
+    </script>
 </head>
 <body>
 
@@ -25,6 +49,27 @@
 
 <div class="container" style="max-width: 960px;">
 
+    <button type="button" class="btn btn-info" onclick="toggleFormAdd();">Adauga produs</button>
+
+    <form id="form-add" style="display: none" >
+        <div class="form-group">
+            <label for="nameProduct">Nume</label>
+            <input type="text" class="form-control" id="nameProduct">
+        </div>
+
+        <div class="form-group">
+            <label for="descriptionProduct">Descriere</label>
+            <input type="text" class="form-control" id="descriptionProduct">
+        </div>
+
+        <div class="form-group">
+            <label for="priceProduct">Pret</label>
+            <input type="text" class="form-control" id="priceProduct">
+        </div>
+
+        <button type="button" class="btn btn-info" onclick="sendSaveProductRequest();">Salveaza</button>
+    </form>
+
     <table class="table table-bordered table-dark">
         <thead>
         <tr>
@@ -36,7 +81,6 @@
             <th scope="col">Cantitate</th>
             <th scope="col">Nume fisier poza</th>
             <th scope="col">Actiuni</th>
-
         </tr>
         </thead>
         <tbody>
@@ -52,10 +96,7 @@
             <td>
                 <button type="button" class="btn btn-outline-success">Detalii</button>
                 <button type="button" class="btn btn-outline-warning">Editare</button>
-                <form action="/admin/remove-product" method="post">
-                    <input name="id" hidden th:value="${p.id}">
-                    <button type="submit" class="btn btn-outline-danger">Stergere</button>
-                </form>
+                <button type="submit" th:id="${p.id}" onclick="deleteProduct(this.id);" class="btn btn-outline-danger">Stergere</button>
             </td>
         </tr>
 
